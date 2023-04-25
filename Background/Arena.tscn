@@ -1,0 +1,60 @@
+[gd_scene load_steps=5 format=2]
+
+[ext_resource path="res://Background/Arena.gd" type="Script" id=1]
+[ext_resource path="res://Background/Arena.png" type="Texture" id=2]
+
+[sub_resource type="RectangleShape2D" id=1]
+extents = Vector2( 512, 2.5 )
+
+[sub_resource type="RectangleShape2D" id=2]
+extents = Vector2( 2.5, 295 )
+
+[node name="Arena" type="Node2D"]
+script = ExtResource( 1 )
+
+[node name="Arena_Skin" type="Sprite" parent="."]
+texture = ExtResource( 2 )
+centered = false
+
+[node name="UpperWall" type="StaticBody2D" parent="."]
+position = Vector2( 512, 2.5 )
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="UpperWall"]
+shape = SubResource( 1 )
+__meta__ = {
+"_edit_lock_": true
+}
+
+[node name="DownerWall" type="StaticBody2D" parent="."]
+position = Vector2( 512, 597.5 )
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="DownerWall"]
+shape = SubResource( 1 )
+__meta__ = {
+"_edit_lock_": true
+}
+
+[node name="ScoreLeft" type="Area2D" parent="."]
+position = Vector2( -2.5, 300 )
+collision_layer = 8
+collision_mask = 8
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="ScoreLeft"]
+shape = SubResource( 2 )
+__meta__ = {
+"_edit_lock_": true
+}
+
+[node name="ScoreRight" type="Area2D" parent="."]
+position = Vector2( 1026.5, 300 )
+collision_layer = 16
+collision_mask = 16
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="ScoreRight"]
+shape = SubResource( 2 )
+__meta__ = {
+"_edit_lock_": true
+}
+
+[connection signal="body_entered" from="ScoreLeft" to="." method="_on_ScoreLeft_body_entered"]
+[connection signal="body_entered" from="ScoreRight" to="." method="_on_ScoreRight_body_entered"]
